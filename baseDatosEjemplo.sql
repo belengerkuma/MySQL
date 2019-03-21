@@ -42,3 +42,30 @@ create index autor on clasicos (autor(20));
 alter table clasicos add ISBN char(13);
 update clasicos set ISBN = '1234' where year = '1876';
 alter table clasicos add primary key(ISBN);
+                                      
+--busqueda en tabla eliminando registros parecidos
+select distinct autor from clasicos;
+                                      
+--eliminar un registro de una tabla
+delete from clasicos where titulo = "mahabarata" limit 1;
+                                      
+--uso del comando like para busquedas con cadenas de texto parecidas al valor buscado
+select * from clasicos where autor like "%les%";
+                                      
+--uso del comando limit para retornar un numero determinado de resultados empezando desde una posicion determinada, 0 inicio
+select * from clasicos where autor = "Carlos Mendoza" limit 1, 2;
+                                      
+--adicionar un index a la tabla de tipo FULLTEXT
+alter table clasicos add FULLTEXT(autor, titulo);
+                                      
+--uso de comandos match against para comparar texto con elementos en la tabla, para ello se requiere index FULLTEXT
+select * from clasicos where match (autor, titulo) against ("Mario", "corona");
+                                      
+--uso de comandos match against en boolean mode para determinar palabras requeridas + o no - en una busqueda
+select * from clasicos where match (autor, titulo) against ('+mario -corona' in boolean mode);
+                                      
+--uso de comandos match against en boolean mode para determinar la busqueda de una cadena determinada
+select * from clasicos where match (autor, titulo) against ('"Mario Mendoza"' in boolean mode);
+                                      
+--uso del comando update para actualizar informacion en una tabla
+update clasicos set titulo = 'amor en los tiempos del colera' where isbn = '12345';
