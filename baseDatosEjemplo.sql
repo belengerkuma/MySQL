@@ -69,3 +69,13 @@ select * from clasicos where match (autor, titulo) against ('"Mario Mendoza"' in
                                       
 --uso del comando update para actualizar informacion en una tabla
 update clasicos set titulo = 'amor en los tiempos del colera' where isbn = '12345';
+
+--uso del comando Order by para busquedas organizadas
+select * from clasicos order by autor;
+select * from clasicos order by autor desc;
+                                      
+--uso del comando group by para agrupar busquedas similares
+select categoria, count(autor) from clasicos group by categoria;
+                                      
+--uso del comando natural join para busquedas anidadas que reemplazan columnas iguales
+select * from clientes natural join clasicos;
