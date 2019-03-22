@@ -79,3 +79,17 @@ select categoria, count(autor) from clasicos group by categoria;
                                       
 --uso del comando natural join para busquedas anidadas que reemplazan columnas iguales
 select * from clientes natural join clasicos;
+
+--uso del tipo de engine innodb que permite comandos commit y rollback
+create table saldo (idcliente int auto increment key, cantidad int, nombre varchar(50), primary key(idcliente)) engine InnoDB; 
+insert into saldo (cantidad, nombre) values (100000, 'edward');
+begin;
+update saldo set saldo = saldo + 10000 where idcliente = 1;
+commit; --para asegurar las transacciones en la base de datos
+rollback; --para eliminar las transacciones parciales en la base de datos;
+                                                                                                    
+--uso del comando explain para mejorar las consultas hechas
+explain select * from clasicos;
+                                                                                                    
+--uso del comando mysqldump para respaldo de informacion de la base de datos
+mysqldump -u edward -p alpha sistema > sistema.sql;
