@@ -93,3 +93,13 @@ explain select * from clasicos;
                                                                                                     
 --uso del comando mysqldump para respaldo de informacion de la base de datos
 mysqldump -u edward -p alpha sistema > sistema.sql;
+                                                                                                    
+--uso del comando lock para evitar escrituras no deseadas
+lock tables sistema.clasicos read;
+unlock tables;
+                                                                                                    
+--comando para backup de todas las bases de datos
+mysqldump -u edward -p alpha --all-databases > all_databases.sql;
+                                                                                                    
+--comando para restaurar una o varias bases de datos
+mysql -u edward -p alpha -D sistema < sistema.sql;
